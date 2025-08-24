@@ -1,0 +1,32 @@
+[
+    {
+        "Name":"Advaith Vora",
+        "Address":"H.No. 950, Palla Road, New Delhi-050526",
+        "Aadhaar Number":"337920616599",
+        "Document Type":"Aadhaar Card"
+    },
+    {
+        "Name":"Jack Nigam",
+        "Address":"46/728, Chanda Path, Ramagundam 611307",
+        "Aadhaar Number":"212822657475",
+        "Document Type":"Aadhaar Card"
+    },
+    {
+        "Name":"Gayathri Parekh",
+        "Address":"72/679, Munshi Path, Bulandshahr 276435",
+        "Aadhaar Number":"289177559403",
+        "Document Type":"Aadhaar Card"
+    },
+    {
+        "Name":"Nitesh Kalita",
+        "Address":"96/148, Dey Path, Dehri 669332",
+        "Aadhaar Number":"781911458172",
+        "Document Type":"Aadhaar Card"
+    },
+    {
+        "Name":"Yasti Hans",
+        "Address":"265, Datta Road, Asansol 018083",
+        "Aadhaar Number":"143335971192",
+        "Document Type":"Aadhaar Card"
+    }
+]
