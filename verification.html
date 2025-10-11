@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SmartKYC — Verification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}" class="brand">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="SmartKYC logo" />
+                <div>
+                    <h1>SmartKYC</h1>
+                    <div class="muted" style="font-size:12px;margin-top:2px">KYC Verification • Fraud Detection</div>
+                </div>
+            </a>
+        </div>
+        <button class="hamburger" id="hamburgerBtn">☰</button>
+        <nav class="nav-center">
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('verification') }}">Verification</a>
+                <a href="#admin">Admin</a>
+            </div>
+        </nav>
+        <div class="nav-right">
+            <a href="{{ url_for('signup') }}" class="btn ghost">Sign Up</a>
+            <div class="login-dropdown">
+                <a href="{{ url_for('login') }}" class="btn primary">Log In</a>
+                <button id="signoutBtn" style="display:none;" class="btn danger">← Sign Out</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- KYC Section -->
+    <main>
+        <div class="kyc-upload-container">
+            <!-- Upload Section -->
+            <div class="kyc-upload-box">
+                <h2>Upload Your KYC Document</h2>
+
+                <!-- Select Document Type -->
+                <div id="docType-wrapper" style="position:relative; width:80%; margin-bottom:20px;">
+                    <select id="docType" style="width:100%; padding:8px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background-color: rgba(255,255,255,0.05); color:#e6f0f6; appearance:none; -webkit-appearance:none; -moz-appearance:none; cursor:pointer;">
+                    <option value="" selected hidden>Select document type</option>
+                    <option value="aadhaar">Aadhaar</option>
+                    <option value="pan">PAN</option>
+                    <option value="driving_license">Driving Licence</option>
+                </select>
+                    <span style="position:absolute; top:50%; right:12px; transform:translateY(-50%); pointer-events:none; color:#e6f0f6;">▼</span>
+                </div>
+
+                <!-- Hidden file input -->
+                <input type="file" id="kycFile" accept="image/*,.pdf" style="display:none;">
+
+                <!-- Preview area includes instruction -->
+                <div class="preview-area" id="previewArea">
+                    <p>Click here to upload a document</p>
+                </div>
+
+                <!-- Verify Button -->
+                <button id="verifyBtn" class="btn primary" style="margin-top:20px; width:50%; align-self:center;">Verify Document</button>
+            </div>
+
+            <!-- Extracted Details Section -->
+            <div class="extracted-container" id="extractedContainer" style="display:none;">
+                <h3>Extracted KYC Details</h3>
+
+                <div class="detail-field">
+                    <label>Name</label>
+                    <p id="detailName">—</p>
+                </div>
+
+                <div class="detail-field" id="dobField">
+                    <label>Date of Birth</label>
+                    <p id="detailDob">—</p>
+                </div>
+
+
+                <div class="detail-field" id="aadhaarNumberField" style="display:none;">
+                    <label>Aadhaar Number</label>
+                    <p id="detailAadhaar">—</p>
+                </div>
+
+                <div class="detail-field" id="panNumberField" style="display:none;">
+                    <label>PAN Number</label>
+                    <p id="detailPan">—</p>
+                </div>
+
+                <div class="detail-field" id="dlNumberField" style="display:none;">
+                    <label>Driving Licence Number</label>
+                    <p id="detailDL">—</p>
+                </div>
+
+                <div class="detail-field" id="issuedOnField" style="display:none;">
+                    <label>Issued On</label>
+                    <p id="detailIssued">—</p>
+                </div>
+
+                <div class="detail-field" id="genderField" style="display:none;">
+                    <label>Gender</label>
+                    <p id="detailGender">—</p>
+                </div>
+
+                <div class="detail-field" id="addressField" style="display:none;">
+                    <label>Address</label>
+                    <p id="detailAddress">—</p>
+                </div>
+
+                <!-- Fraud Risk Section -->
+                <div class="fraud-container" id="fraudContainer" style="display:none; margin-top:20px; padding:15px; border:1px solid #ccc; border-radius:8px; background-color:#1b1b1b; color:#e6f0f6;">
+                    <h3>Fraud Detection Results</h3>
+                    <p><strong>Fraud Risk Score:</strong> <span id="fraudScore">—</span>% (<span id="fraudLevel">—</span>)</p>
+
+                    <div>
+                        <canvas id="fraudBarChart" style="max-width:100%; height:200px;"></canvas>
+                    </div>
+                    <div>
+                        <canvas id="fraudPieChart" style="max-width:100%; height:200px; margin-top:15px;"></canvas>
+                    </div>
+
+                    <div id="fraudNotes" style="margin-top:10px; font-size:12px; color:#ccc;"></div>
+                </div>
+
+
+                <button id="submitKycBtn" class="btn primary" style="margin-top:20px; width:50%; align-self:center;">Submit KYC</button>
+
+                <pre id="detailsJSON" style="background:#f4f4f4; padding:10px; border-radius:5px;"></pre>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- File preview JS -->
+    <script>
+        const input = document.getElementById("kycFile");
+        const preview = document.getElementById("previewArea");
+
+        // Make preview area clickable
+        preview.addEventListener("click", () => input.click());
+
+        // Show uploaded file
+        input.addEventListener("change", (e) => {
+            preview.innerHTML = ""; // clear previous
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.type.startsWith("image/")) {
+                const img = document.createElement("img");
+                img.src = URL.createObjectURL(file);
+                img.style.maxWidth = "100%";
+                img.style.borderRadius = "8px";
+                preview.appendChild(img);
+            } else {
+                preview.innerHTML = `<p>📄 ${file.name}</p>`;
+            }
+        });
+    </script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <!-- Verification handler -->
+    <script src="{{ url_for('static', filename='verification.js') }}"></script>
+</body>
+
+</html>

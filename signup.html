@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SmartKYC — Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}" class="brand">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="SmartKYC logo" />
+                <div>
+                    <h1>SmartKYC</h1>
+                    <div class="muted" style="font-size:12px;margin-top:2px">KYC Verification • Fraud Detection</div>
+                </div>
+            </a>
+        </div>
+        <button class="hamburger" id="hamburgerBtn">☰</button>
+        <nav class="nav-center">
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('login') }}">Verification</a>
+                <a href="#admin">Admin</a>
+            </div>
+        </nav>
+        <div class="nav-right">
+            <a href="{{ url_for('signup') }}" class="btn ghost">Sign Up</a>
+            <div class="login-dropdown">
+                <a href="{{ url_for('login') }}" class="btn primary">Log In</a>
+                <button id="signoutBtn" style="display:none;" class="btn danger">← Sign Out</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="signup-container">
+        <h1 class="signup-heading">Sign Up!</h1>
+
+        <!-- User/Admin options -->
+        <div id="signupOptions">
+            <div class="signup-box user-box">
+                <div class="left-content">
+                    <h2>👤 User</h2>
+                    <p>To verify KYC & detect fraud instantly.</p>
+                </div>
+                <div class="signup-arrow">→</div>
+            </div>
+
+            <div class="signup-box admin-box">
+                <div class="left-content">
+                    <h2>🛡️ Admin</h2>
+                    <p>To review KYC & approve genuine users.</p>
+                </div>
+                <div class="signup-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- User Form -->
+        <form id="userForm" class="signup-form hidden">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Enter your First Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Enter your Last Name" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter Email Address" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" pattern="[A-Za-z0-9]+" placeholder="Enter Password" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" pattern="\d{10}" placeholder="Enter Phone Number">
+                </div>
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <select id="country" name="country" required>
+                        <option value="India" selected>India</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn primary" style="width:180px; align-self:center;">Sign Up</button>
+
+            <div id="successBox" class="success-box">
+                <p>✅ Signed up successfully!</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Admin Form -->
+        <form id="adminForm" class="signup-form hidden">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="adminName">Admin Name</label>
+                    <input type="text" id="adminName" placeholder="Enter Admin Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminID">Admin ID</label>
+                    <input type="text" id="adminID" placeholder="Enter Admin ID" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" placeholder="Enter Email Address" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" pattern="[A-Za-z0-9]+" placeholder="Enter Password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn primary" style="width:180px; align-self:center;">Sign Up</button>
+
+            <div id="adminSuccess" class="success-box">
+                <p>✅ Admin signed up successfully!</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </form>
+    </main>
+    <div id="alertBox" class="alert-box"></div>
+
+    <script>
+        const signupOptions = document.getElementById('signupOptions');
+
+        function showAlert(message) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.textContent = message;
+            alertBox.classList.add('show');
+            setTimeout(() => alertBox.classList.remove('show'), 3000);
+        }
+
+        function setupSignupForm(boxSelector, formId, successId, redirectUrl) {
+            const box = document.querySelector(boxSelector);
+            const form = document.getElementById(formId);
+            const successBox = document.getElementById(successId);
+
+            box.addEventListener('click', () => {
+                signupOptions.classList.add('hidden');
+                form.classList.remove('hidden');
+            });
+
+            form.addEventListener('submit', async(e) => {
+                e.preventDefault();
+                let bodyData;
+
+                if (formId === 'userForm') {
+                    bodyData = {
+                        email: form.querySelector('input[type="email"]').value,
+                        password: form.querySelector('input[type="password"]').value,
+                        phone: form.querySelector('input[name="phone"]').value
+                    };
+                } else {
+                    bodyData = {
+                        name: document.getElementById('adminName').value,
+                        adminId: document.getElementById('adminID').value,
+                        email: document.getElementById('adminEmail').value,
+                        password: document.getElementById('adminPassword').value
+                    };
+                }
+
+                try {
+                    const res = await fetch(
+                        formId === 'userForm' ? '/api/signup' : '/api/admin/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(bodyData)
+                        }
+                    );
+
+
+                    const data = await res.json();
+
+                    if (res.ok) {
+                        successBox.classList.add('show');
+                        const progressFill = successBox.querySelector('.progress-fill');
+                        progressFill.style.width = '0%';
+                        progressFill.offsetWidth;
+                        setTimeout(() => (progressFill.style.width = '100%'), 50);
+
+                        setTimeout(() => {
+                            successBox.classList.remove('show');
+                            progressFill.style.width = '0%';
+                            form.reset();
+                            window.location.href = "{{ url_for('login') }}";
+                        }, 2000);
+                    } else {
+                        showAlert(data.error || '❌ Signup failed');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    showAlert('Server error');
+                }
+            });
+        }
+
+        setupSignupForm('.user-box', 'userForm', 'successBox', "{{ url_for('login') }}");
+        setupSignupForm('.admin-box', 'adminForm', 'adminSuccess', "{{ url_for('login') }}");
+    </script>
+
+    <script src="{{ url_for('static', filename='navbar.js') }}"></script>
+</body>
+
+</html>
