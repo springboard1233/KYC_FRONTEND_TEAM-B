@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SmartKYC — Home</title>
+    <!-- CSS path updated for Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}" class="brand">
+                <!-- Logo path updated -->
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="SmartKYC logo" />
+                <div>
+                    <h1>SmartKYC</h1>
+                    <div class="muted" style="font-size:12px;margin-top:2px">KYC Verification • Fraud Detection</div>
+                </div>
+            </a>
+        </div>
+        <button class="hamburger" id="hamburgerBtn">☰</button>
+        <nav class="nav-center">
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="{{ url_for('login') }}">Verification</a>
+                <a href="#admin">Admin</a>
+            </div>
+        </nav>
+        <div class="nav-right">
+            <a href="{{ url_for('signup') }}" class="btn ghost">Sign Up</a>
+            <div class="login-dropdown">
+                <a href="{{ url_for('login') }}" class="btn primary">Log In</a>
+                <button id="signoutBtn" style="display:none;" class="btn danger">← Sign Out</button>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <a href="#home">Home</a>
+        <a href="{{ url_for('login') }}">Verification</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#admin">Admin</a>
+        <div class="actions">
+            <a href="{{ url_for('signup') }}">Sign Up</a>
+            <a href="{{ url_for('login') }}">Log In</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-card">
+                <h2>Welcome to SmartKYC</h2>
+                <p class="lead">KYC verification with fraud detection ensures that identities are accurately verified while detecting and preventing potential fraudulent activities.</p>
+                <div style="display:flex;justify-content:center;margin-top:18px">
+                    <a class="btn primary" href="{{ url_for('login') }}">Start Verification</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- KYC Steps Section -->
+        <section class="kyc-steps">
+            <div class="kyc-card">
+                <div class="kyc-icon">📄</div>
+                <h3>Step 1: Upload Your KYC</h3>
+                <p>Aadhaar Card, PAN Card, Driving Licence</p>
+            </div>
+
+            <div class="kyc-card">
+                <div class="kyc-icon">✅</div>
+                <h3>Step 2: Submit for Verification</h3>
+                <p>Click Submit after uploading documents.</p>
+            </div>
+
+            <div class="kyc-card">
+                <div class="kyc-icon">🔍</div>
+                <h3>Step 3: Extract Your Details from KYC</h3>
+                <p>System extracts details from documents (OCR).</p>
+            </div>
+
+            <div class="kyc-card">
+                <div class="kyc-icon">⚠️</div>
+                <h3>Step 4: Fraud Analysis</h3>
+                <ul class="fraud-list">
+                    <li>✅ Low Risk → Genuine</li>
+                    <li>⚠️ Medium Risk → Needs manual review</li>
+                    <li>❌ High Risk → Likely fraud</li>
+                </ul>
+            </div>
+
+            <div class="kyc-card">
+                <div class="kyc-icon">📊</div>
+                <h3>Step 5: Receive Verification Result</h3>
+                <ul class="result-list">
+                    <li>✅ Verified / Approved</li>
+                    <li>❌ Rejected</li>
+                    <li>⏳ Pending / Under Review</li>
+                    <li>⚠️ Fraud Suspected</li>
+                </ul>
+            </div>
+
+            <div class="kyc-card">
+                <div class="kyc-icon">🔄</div>
+                <h3>Step 6: Retry or Appeal (if needed)</h3>
+                <ul class="retry-list">
+                    <li>📤 Re-upload documents</li>
+                    <li>✏️ Correct mistakes</li>
+                    <li>✅ Resubmit for verification</li>
+                </ul>
+            </div>
+
+            <div class="kyc-card step7">
+                <div class="kyc-icon">🎉</div>
+                <h3>Step 7: Completion</h3>
+                <ul class="completion-list">
+                    <li>🔑 Access services that require KYC</li>
+                    <li>📄 View verification report</li>
+                    <li>🗂️ Status stored for audit/compliance</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Why SmartKYC Section -->
+        <section class="why-smartkyc">
+            <h2>Why SmartKYC?</h2>
+            <div class="features-list">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <div>
+                        <h3>Secure Verification</h3>
+                        <p>Your documents are encrypted and verified securely to prevent misuse.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div>
+                        <h3>Fast Processing</h3>
+                        <p>AI + OCR ensures instant extraction and verification of your KYC documents.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <div>
+                        <h3>Fraud Detection</h3>
+                        <p>Detects duplicates, tampering, and identity theft before approval.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <div>
+                        <h3>Global Compliance</h3>
+                        <p>Meets regulatory standards (AML, CFT, KYC) across different regions.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍💻</div>
+                    <div>
+                        <h3>User Friendly</h3>
+                        <p>Simple upload process with easy tracking of your verification status.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div>
+                        <h3>Detailed Reports</h3>
+                        <p>Get a clear verification report and fraud analysis for compliance audits.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JS path updated for Flask -->
+    <script src="{{ url_for('static', filename='navbar.js') }}"></script>
+</body>
+
+</html>
