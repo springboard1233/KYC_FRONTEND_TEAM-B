@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SmartKYC — Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}" class="brand">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="SmartKYC logo" />
+                <div>
+                    <h1>SmartKYC</h1>
+                    <div class="muted" style="font-size:12px;margin-top:2px">KYC Verification • Fraud Detection</div>
+                </div>
+            </a>
+        </div>
+        <button class="hamburger" id="hamburgerBtn">☰</button>
+        <nav class="nav-center">
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('login') }}">Verification</a>
+                <a href="#admin">Admin</a>
+            </div>
+        </nav>
+        <div class="nav-right">
+            <a href="{{ url_for('signup') }}" class="btn ghost">Sign Up</a>
+            <div class="login-dropdown">
+                <a href="{{ url_for('login') }}" class="btn primary">Log In</a>
+                <button id="signoutBtn" style="display:none;" class="btn danger">← Sign Out</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="signup-container">
+        <h1 class="signup-heading" id="formTitle">User Login</h1>
+
+        <!-- User Login Form -->
+        <form id="userLogin" class="signup-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" name="email" placeholder="Enter your email" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="Enter password" autocomplete="new-password" required>
+                </div>
+            </div>
+            <button type="submit" class="btn primary" style="width:180px; align-self:center;">Log In</button>
+            <p class="switch-form"> <a href="#" id="switchToAdmin">Login as Admin</a></p>
+
+            <!-- Success Box -->
+            <div id="loginSuccess" class="login-success-box">
+                <p>✅ Logged in successfully!</p>
+                <div class="login-progress-bar">
+                    <div class="login-progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Error Box -->
+            <div id="loginError" class="login-error-box">
+                <p>❌ Invalid email or password!</p>
+                <div class="login-progress-bar">
+                    <div class="login-error-fill"></div>
+                </div>
+            </div>
+        </form>
+
+        <div id="signoutSuccess" class="signout-success-box">
+            <p>✅ Signed out successfully!</p>
+            <div class="signout-progress-bar">
+                <div class="signout-progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Admin Login Form -->
+        <form id="adminLogin" class="signup-form hidden">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="adminEmail">Admin Email</label>
+                    <input type="email" id="adminEmail" name="adminEmail" placeholder="Enter admin email" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" name="adminPassword" placeholder="Enter password" autocomplete="new-password" required>
+                </div>
+            </div>
+            <button type="submit" class="btn primary" style="width:180px; align-self:center;">Log In</button>
+            <p class="switch-form"> <a href="#" id="switchToUser">Login as User</a></p>
+
+            <!-- Admin Login Success -->
+            <div id="adminSuccess" class="login-success-box">
+                <p>✅ Admin logged in successfully!</p>
+                <div class="login-progress-bar">
+                    <div class="login-progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Admin Login Error -->
+            <div id="adminError" class="login-error-box">
+                <p>❌ Invalid Admin email or password!</p>
+                <div class="login-progress-bar">
+                    <div class="login-error-fill"></div>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        const userForm = document.getElementById("userLogin");
+        const adminForm = document.getElementById("adminLogin");
+        const formTitle = document.getElementById("formTitle");
+        const signoutBtn = document.getElementById("signoutBtn");
+        const loginBtn = document.querySelector(".login-dropdown .primary");
+        const signupBtn = document.querySelector(".nav-right .ghost");
+
+        const switchToAdmin = document.getElementById("switchToAdmin");
+        const switchToUser = document.getElementById("switchToUser");
+
+        // Navbar update function
+        function updateNavbar() {
+            const loggedInUser = localStorage.getItem("currentUser");
+            const loggedInAdmin = localStorage.getItem("currentAdmin");
+
+            if (loggedInUser || loggedInAdmin) {
+                loginBtn.style.display = "none";
+                signupBtn.style.display = "none";
+                signoutBtn.style.display = "inline-block";
+            } else {
+                loginBtn.style.display = "inline-block";
+                signupBtn.style.display = "inline-block";
+                signoutBtn.style.display = "none";
+            }
+        }
+
+        updateNavbar();
+
+        // Sign Out Button
+        signoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("currentUser");
+            localStorage.removeItem("currentAdmin");
+
+            const box = document.getElementById("signoutSuccess");
+            if (box) {
+                const fill = box.querySelector(".signout-progress-fill");
+                box.classList.add("show");
+                fill.style.width = "0%";
+                setTimeout(() => fill.style.width = "100%", 50);
+                setTimeout(() => {
+                    box.classList.remove("show");
+                    fill.style.width = "0%";
+                    updateNavbar();
+                    window.location.href = "{{ url_for('home') }}";
+                }, 3600);
+            } else {
+                alert("Signed out successfully!");
+                updateNavbar();
+                window.location.href = "{{ url_for('home') }}";
+            }
+        });
+
+        // Switch forms
+        switchToAdmin.addEventListener("click", (e) => {
+            e.preventDefault();
+            userForm.classList.add("hidden");
+            adminForm.classList.remove("hidden");
+            formTitle.textContent = "Admin Login";
+        });
+
+        switchToUser.addEventListener("click", (e) => {
+            e.preventDefault();
+            adminForm.classList.add("hidden");
+            userForm.classList.remove("hidden");
+            formTitle.textContent = "User Login";
+        });
+
+        // ✅ USER LOGIN
+        userForm.addEventListener("submit", async(e) => {
+            e.preventDefault();
+            const email = document.getElementById("loginEmail").value.trim();
+            const password = document.getElementById("loginPassword").value.trim();
+            const loginSuccess = document.getElementById("loginSuccess");
+            const loginError = document.getElementById("loginError");
+
+            try {
+                const res = await fetch("http://localhost:5000/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        role: "user"
+                    })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+
+                    // Store role and name for profile circle
+                    localStorage.setItem("userRole", "user");
+                    localStorage.setItem("userName", data.name || "User");
+
+                    localStorage.setItem("currentUser", email);
+                    localStorage.removeItem("currentAdmin");
+
+                    const progress = loginSuccess.querySelector(".login-progress-fill");
+                    loginSuccess.classList.add("show");
+                    progress.style.width = "0%";
+                    setTimeout(() => progress.style.width = "100%", 50);
+                    setTimeout(() => {
+                        loginSuccess.classList.remove("show");
+                        progress.style.width = "0%";
+                        userForm.reset();
+                        updateNavbar();
+                        window.location.href = "{{ url_for('verification') }}";
+                    }, 3500);
+                } else {
+                    const progress = loginError.querySelector(".login-error-fill");
+                    loginError.classList.add("show");
+                    progress.style.width = "0%";
+                    setTimeout(() => progress.style.width = "100%", 50);
+                    setTimeout(() => {
+                        loginError.classList.remove("show");
+                        progress.style.width = "0%";
+                    }, 3500);
+                }
+            } catch (err) {
+                console.error("Error:", err);
+            }
+        });
+
+        // ✅ ADMIN LOGIN
+        adminForm.addEventListener("submit", async(e) => {
+            e.preventDefault();
+            const email = document.getElementById("adminEmail").value.trim();
+            const password = document.getElementById("adminPassword").value.trim();
+            const adminSuccess = document.getElementById("adminSuccess");
+            const adminError = document.getElementById("adminError");
+
+            try {
+                const res = await fetch("http://localhost:5000/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        role: "admin"
+                    })
+                });
+
+                if (res.ok) {
+                    localStorage.setItem("currentAdmin", email);
+                    localStorage.removeItem("currentUser");
+                    const progress = adminSuccess.querySelector(".login-progress-fill");
+                    adminSuccess.classList.add("show");
+                    progress.style.width = "0%";
+                    setTimeout(() => progress.style.width = "100%", 50);
+                    setTimeout(() => {
+                        adminSuccess.classList.remove("show");
+                        progress.style.width = "0%";
+                        adminForm.reset();
+                        updateNavbar();
+                        window.location.href = "{{ url_for('verification') }}";
+                    }, 3500);
+                } else {
+                    const progress = adminError.querySelector(".login-error-fill");
+                    adminError.classList.add("show");
+                    progress.style.width = "0%";
+                    setTimeout(() => progress.style.width = "100%", 50);
+                    setTimeout(() => {
+                        adminError.classList.remove("show");
+                        progress.style.width = "0%";
+                    }, 3500);
+                }
+            } catch (err) {
+                console.error("Error:", err);
+            }
+        });
+    </script>
+</body>
+
+</html>
