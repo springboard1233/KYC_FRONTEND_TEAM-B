@@ -1,0 +1,92 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #d8f3f3;
+  font-family: Arial, sans-serif;
+}
+
+.pan-card {
+  width: 500px;
+  height: 300px;
+  background: linear-gradient(135deg, #b3e6ff, #e6f7ff);
+  border: 2px solid #555;
+  border-radius: 10px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #003366;
+}
+
+.emblem {
+  width: 50px;
+  height: auto;
+}
+
+.pan-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile {
+  text-align: center;
+}
+
+.profile img {
+  width: 90px;
+  height: 90px;
+}
+
+.profile .name {
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.card-info {
+  text-align: center;
+  flex: 1;
+}
+
+.card-info h3 {
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.pan-no {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #000;
+}
+
+.qr-code img {
+  width: 100px;
+  height: 100px;
+}
+
+.pan-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 12px;
+  padding: 0 5px;
+}
+
+.signature {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 16px;
+}
