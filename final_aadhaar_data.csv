@@ -1,6 +1,4 @@
-Name,Address,Aadhaar Number,Document Type
-Panini Tara,"92/65, Yogi Nagar, New Delhi-281825",241863367710,Aadhaar Card
-Garima Kulkarni,"463, Garde Marg, Guwahati-887711",722198109010,Aadhaar Card
-Alka Saha,"H.No. 46, Sur Chowk, Mau-513302",479787453121,Aadhaar Card
-Garima Sha,"H.No. 054, Mandal Circle, Bangalore-846611",585722712658,Aadhaar Card
-Samuel Nayar,"231, Narula Path, Giridih 224593",690789847105,Aadhaar Card
+Name,Age,City,Address,Aadhaar Number,Valid Aadhaar
+John,25,New York,12 Main Road,123456789012,True
+Alice,30,London,45 King Street,987654321098,True
+Rahul,28,Mumbai,7 Queen Avenue,456789123456,True
