@@ -1,0 +1,665 @@
+:root{
+  --bg:#0f1724;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#2563eb;
+  --danger:#ef4444;
+  --success:#18cf0e;
+  --glass: rgba(255,255,255,0.06);
+  --radius:12px;
+  --max-width:1100px;
+  --font-sans: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --base-size:16px;
+}
+.site-header .brand.small {
+    font-weight: 600;       /* medium-bold */
+    font-size: 1.25rem;     /* medium size */
+    color: #ffffff;         /* white text */
+}
+.site-header .brand {
+  color: #ffffff !important;
+}
+/* Upload card headings */
+.upload-card-section h3 {
+  color: #111; /* dark black for good contrast */
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* File label text */
+.file-label {
+  color: #fff; /* keep button text white */
+}
+
+/* Preview text (file name, muted info) */
+.preview p {
+  color: #111; /* make preview info text black */
+}
+
+/* Status messages below buttons */
+.status {
+  color: #111; /* dark text for status messages */
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+.upload-card h2 {
+  color: #111; /* dark black for contrast */
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.result-card h2 {
+  color: #111; /* black for readability */
+  text-align: left; /* optional: aligns text to left if needed */
+  margin-bottom: 1.5rem;
+}
+.verification-card h2,
+.aadhaar-card h3 {
+  color: #111; /* black text */
+}
+.compliance-card h2,
+.panel h3 {
+    color: #000000; /* black color */
+}
+
+/* ---------------- Global Styles ---------------- */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f6fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+/* ---------------- Card ---------------- */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 20px;
+}
+
+/* ---------------- Headings ---------------- */
+h2, h3 {
+  margin: 0 0 15px 0;
+  color: #ffffff;
+}
+
+h3 {
+  margin-top: 25px;
+}
+
+/* ---------------- Controls ---------------- */
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #777;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn.primary {
+  background: #4caf50;
+}
+
+.input {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  flex: 1;
+  min-width: 200px;
+}
+
+/* ---------------- Tables ---------------- */
+.table-panel {
+  overflow-x: auto;
+}
+
+table.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table.table th, table.table td {
+  padding: 12px 15px;
+  border: 1px solid #eee;
+  text-align: left;
+}
+
+table.table th {
+  background: #f0f0f0;
+}
+
+tr:nth-child(even) {
+  background: #fafafa;
+}
+
+tr:hover {
+  background: #f1f1f1;
+}
+
+.muted {
+  color: #999;
+  text-align: center;
+}
+
+/* ---------------- Dismiss Button ---------------- */
+.dismissBtn {
+  background: #f44336;
+}
+
+.dismissBtn:hover {
+  background: #d32f2f;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+  }
+  .input {
+    width: 100%;
+  }
+}
+.page-header {
+  background: #4caf50;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--font-sans);
+  font-size:var(--base-size);
+  color:#0b1220;
+  background-color:#0b1220;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* container */
+.container{max-width:var(--max-width);margin:0 auto;padding:1.25rem}
+
+/* header */
+.site-header{
+  background-color: rgba(27, 36, 101, 0.95); /* dark navy, semi-opaque */
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: none; /* remove blur */
+}
+.site-header nav a{
+  color: #fff; /* readable text */
+  font-weight:600;
+}
+.panel {
+  background:#fff;
+  padding:1rem;
+  border-radius:10px;
+  border:1px solid rgba(2,6,23,0.04);
+  margin-bottom:1rem;
+}
+.doc-box {
+  min-height:110px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:linear-gradient(180deg, #ffffff, #ffffff);
+}
+.multi-upload {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.upload-section {
+  flex: 1;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.98));
+  padding: 1rem;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.1);
+  text-align: center;
+}
+
+.upload-section .field span {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.upload-section .preview img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.verification-container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  color: #ffffffd6;
+}
+
+.aadhaar-card {
+  flex: 1 1 400px;
+  background: rgb(255, 255, 255);
+  padding: 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+/* Template Matching */
+/* Template Matching - Blue */
+#tmBar {
+  background: #10078d !important;
+}
+
+/* Document Authenticity - Green */
+#daBar {
+  background:  #10078d !important;
+}
+
+/* Security Check - Orange */
+#secBar {
+  background:  #10078d !important;
+}
+
+/* Optional: smooth transition & height for all progress bars */
+
+
+.verification-box {
+  flex: 0 0 200px;
+  background: #ffffff; /* distinct white background */
+  color: #111;
+  padding: 1.5rem;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.verification-box img {
+  width: 64px;
+  margin-bottom: 0.5rem;
+}
+
+.verification-item {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.verification-item label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.verification-wrapper {
+  max-width: 900px; /* fixed width */
+  margin: 2rem auto; /* center horizontally with margin top/bottom */
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  color: #1e0f56;
+}
+
+.progress-bar {
+  height: 16px;
+  border-radius: 80px;
+  background: rgba(255,255,255,0.2);
+  margin-top: 0.4rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 12px;
+  width: 0;                    /* initial width = 0 */
+  border-radius: 6px;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  background: rgb(5, 9, 111);  
+  transition: width 1s ease-in-out;  /* this is correct */
+}
+/* Run Verification Button (if you already have .btn.primary, fine; this fine-tunes) */
+#runVerify {
+  text-decoration: none;
+  background: linear-gradient(135deg, #4cafef, #0077cc);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+#runVerify:hover { transform: translateY(-3px); }
+#runVerify:active { transform: translateY(0); }
+
+/* Spinner (small inline) */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: rgba(255,255,255,0.95);
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Risk badge styles */
+#riskBadge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.risk-low { background: #ffebee; color: #b71c1c; border: 1px solid rgba(183,28,28,0.08); }
+.risk-medium { background: #fff3e0; color: #e65100; border: 1px solid rgba(230,81,0,0.08); }
+.risk-high { background: #e8f5e9; color: #1b5e20; border: 1px solid rgba(27,94,32,0.08); }
+
+/* Small tweak: ensure progress-fill transition is animated */
+.progress-fill { transition: width 700ms ease; }
+
+
+.verification-item label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+/* Run Verification Button */
+#runVerify {
+  background: linear-gradient(135deg, #4cafef, #0077cc);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}/* Hide the native input */
+.file-upload input[type="file"] {
+  display: none;
+}
+
+/* Custom button style */
+.file-upload {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.file-label {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 180px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Hover effect */
+.file-label:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* Active effect */
+.file-label:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+/* Spinner overlay */
+#verificationLoading {
+  display: none;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+#verificationLoading .spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.verification-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+}
+
+.verification-loading .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0,0,0,0.1);
+  border-top-color: #2575fc;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.verifying-text .dots::after {
+  content: '';
+  animation: dots 1s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+
+
+#runVerify:hover {
+  background: linear-gradient(135deg, #0077cc, #005fa3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+#runVerify:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+.verification-overall img {
+  width: 64px;
+  margin-bottom: 0.5rem;
+}
+
+.verification-item .progress-bar {
+  height: 16px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.2);
+  margin-top: 0.4rem;
+  overflow: hidden;
+}
+
+.verification-item .progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 8px;
+  transition: width 0.6s ease;
+}
+
+.verification-overall {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+
+
+.header-row{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
+.brand{font-weight:700;letter-spacing:0.2px}
+.brand.small{font-size:1rem}
+.site-header nav a{margin-left:1rem;color:var(--card);text-decoration:none;font-weight:600;opacity:0.95}
+.site-header nav a:hover{opacity:1;text-decoration:underline}
+
+/* Hero */
+.hero{
+  min-height:60vh;
+  background-image: url('https://images.unsplash.com/photo-1556741533-f6acd647d2fb?auto=format&fit=crop&w=1600&q=60');
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;color:white;padding:3rem 0;
+}
+.hero-inner{background:linear-gradient(180deg,rgba(3,7,18,0.55),rgba(3,7,18,0.6));padding:2.5rem;border-radius:14px}
+.hero h2{font-size:2rem;margin:.25rem 0}
+.lead{opacity:.9;margin-bottom:1rem}
+
+/* cards / forms */
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.98));padding:1.5rem;border-radius:var(--radius);box-shadow:0 6px 24px rgba(2,6,23,0.4);margin:2rem 0}
+.upload-card{max-width:820px;margin:2rem auto}
+.result-card{max-width:900px;margin:2rem auto}
+.verification-card{max-width:1100px;margin:2rem auto}
+.compliance-card{max-width:1100px;margin:2rem auto}
+
+/* form */
+.form-grid{display:grid;gap:.75rem}
+.field span{display:block;margin-bottom:.35rem;font-weight:600}
+.field input[type=file]{display:block}
+.preview img{max-width:320px;border-radius:8px;display:block;margin-top:.5rem}
+.preview.hidden{display:none}
+.controls{display:flex;gap:.75rem;margin-top:.6rem}
+.controls .btn{min-width:120px}
+
+/* buttons */
+/* Generic Button Style */
+.btn {
+  text-decoration: none;      /* removes underline */
+  display: inline-block;      /* makes it behave like a button */
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+/* Primary Button (Green theme for upload) */
+.btn.primary {
+  background: linear-gradient(135deg, #28a745, #218838);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: linear-gradient(135deg, #218838, #19692c);
+  transform: translateY(-2px);
+}
+
+.btn.primary:active {
+  transform: translateY(0);
+}
+
+.btn.danger{background:var(--danger);color:white;border:none}
+
+
+/* small text */
+.small{font-size:.9rem}
+.muted{color:var(--muted)}
+
+/* result grid */
+.result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1rem 0}
+.result-grid .full{grid-column:1/-1;background:var(--glass);padding:.9rem;border-radius:8px}
+.result-grid div {
+  background: #fff;
+  color: #0b1220;   /* dark navy text */
+  padding: .9rem;
+  border-radius: 8px;
+  border: 1px solid rgba(2,6,23,0.04);
+}
+
+/* verification layout */
+.grid-2{display:grid;grid-template-columns:1fr 420px;gap:1rem}
+.panel{background:#fff;padding:1rem;border-radius:10px;border:1px solid rgba(2,6,23,0.04);margin-bottom:1rem}
+.doc-box{min-height:110px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(180deg, #f8fafc, #ffffff)}
+.score-wrap{display:flex;flex-direction:column;gap:.6rem}
+.progress{height:16px;background:#eef2ff;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#f97316,#06b6d4);width:0;transition:width 600ms ease}
+.score-meta{display:flex;justify-content:space-between;align-items:center}
+.chart-box{width:100%;max-width:300px;margin-top:1rem}
+
+/* tables */
+.table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden}
+.table th, .table td{padding:.6rem .75rem;text-align:left;border-bottom:1px solid rgba(2,6,23,0.04);font-size:.95rem}
+.table thead th{background:linear-gradient(180deg,#f8fafc,#ffffff);font-weight:700}
+.table tbody tr:hover{background:rgba(37,99,235,0.03)}
+
+/* inputs */
+.input{padding:.55rem .7rem;border-radius:8px;border:1px solid rgba(2,6,23,0.06);min-width:220px}
+
+/* footer */
+.site-footer{padding:1rem 0;text-align:center;color:rgba(255,255,255,0.7);opacity:0.95}
+
+/* backgrounds per page (subtle) */
+
+/* responsive */
+@media (max-width:900px){
+  .grid-2{grid-template-columns:1fr}
+  .result-grid{grid-template-columns:1fr}
+  .container{padding:1rem}
+  .hero h2{font-size:1.5rem}
+}

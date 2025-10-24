@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Compliance Page</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-row">
+    <h1 class="brand small">KYC Suite</h1>
+    <nav>
+      <a href="upload.html">Upload</a>
+      <a href="verification.html">Verification</a>
+      <a href="index.html">Home</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container card compliance-card">
+  <h2>Fraud Alerts & Audit Trail</h2>
+
+  <div class="controls top-controls">
+    <button id="refreshAlerts" class="btn">Refresh Alerts</button>
+    <button id="exportCSV" class="btn primary">Export Audit CSV</button>
+    <input id="searchAudit" placeholder="Search by Aadhaar / Name / Reason" class="input" />
+  </div> 
+<section class="panel table-panel">
+  <h3>Audit Trail</h3>
+  <table id="auditTable" class="table">
+  <thead>
+    <tr>
+      <th>Document Name</th>
+      <th>Name</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+</section>
+
+<script>
+const STORAGE_KEY = 'auditTrail';
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderAudit();
+});
+
+function getAudit() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+}
+
+function renderAudit() {
+  const tbody = document.querySelector('#auditTable tbody');
+  const audit = getAudit();
+  tbody.innerHTML = '';
+
+  if (!audit.length) {
+    tbody.innerHTML = '<tr><td colspan="3" class="muted">No audit entries</td></tr>';
+    return;
+  }
+
+  audit.forEach(entry => {
+    // Default status = Waiting
+    const status = entry.status || 'Waiting';
+    const name = entry.data?.name || 'Unknown';
+    const docName = entry.type || 'Unknown';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${docName}</td>
+      <td>${name}</td>
+      <td>${status}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+</script>
+</body> </html>

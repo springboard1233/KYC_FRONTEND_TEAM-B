@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Verification Dashboard • Milestone 2</title>
+  <link href="styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-page verification-bg">
+  <header class="site-header">
+    <div class="container header-row">
+      <h1 class="brand small">KYC Suite</h1>
+      <nav>
+        <a href="upload.html">Upload</a>
+        <a href="index.html">Home</a>
+        <a href="compliance.html">Compliance</a>
+      </nav>
+    </div>
+<main class="container card verification-card">
+  <main class="container card verification-card">
+  <h2>Verification Dashboard</h2>
+
+<!-- Run Verification Button with Loading -->
+<div style="text-align:center; margin-bottom:1.5rem;">
+  <button id="runVerify" class="btn primary">Run Verification</button>
+  <div id="verificationLoading" class="verification-loading" style="display:none;">
+    <div class="spinner"></div>
+    <div class="verifying-text">Verifying<span class="dots">...</span></div>
+  </div>
+</div>
+
+  <!-- Hidden until button is clicked -->
+  <div id="verificationDetails" style="display:none;">
+    <div id="verDocDetails" style="margin-top:1.5rem;"></div>
+
+    <div class="verification-wrapper">
+      <!-- Left: Aadhaar Details + Verification Checks -->
+      <div class="aadhaar-card">
+        <h3>Aadhaar Details</h3>
+        <p><strong>Name:</strong> <span id="verName">Vedhika Bhatnagar</span></p>
+      <p><strong>DOB:</strong> <span id="verDOB">29-09-2002</span></p>
+      <p><strong>Gender:</strong> <span id="verGender">Male</span></p>
+      <p><strong>Aadhaar No:</strong> <span id="verAadhaar">3767 0517 8982</span></p>
+      <p><strong>Address:</strong> <span id="verAddress">H.No. 46, Rhagavan Zila, Adoni</span></p>
+        <hr style="margin:1rem 0; border-color: rgba(255,255,255,0.3);" />
+
+        <div class="verification-item">
+          <label>Layout Analysis <span id="tmStatus">—</span></label>
+          <div class="progress-bar"><div id="tmBar" class="progress-fill"></div></div>
+        </div>
+        <div class="verification-item">
+          <label>Validity Check <span id="daStatus">—</span></label>
+          <div class="progress-bar"><div id="daBar" class="progress-fill"></div></div>
+        </div>
+        <div class="verification-item">
+          <label>Safety Audit<span id="secStatus">—</span></label>
+          <div class="progress-bar"><div id="secBar" class="progress-fill"></div></div>
+        </div>
+      </div>
+ <div id="overallMsg" style="display:flex; align-items:center; gap:8px; margin-top:1rem;">
+    <img src="image.png" alt="Tick" style="width:20px; height:20px;">
+    <span id="overallText" style="color:#111;"></span>
+      <!-- Right: Overall Verification Box -->
+      <div class="verification-box">
+        <img src="image.png" alt="Verified" id="overallTick" style="display:none;">
+        <h3 id="overallMessage">Verification pending...</h3>
+        <p style="margin-top:0.5rem; font-size:0.95rem;">
+          Overall Confidence: <span id="overallPercent">0%</span>
+        </p>
+      </div>
+      <div id="verificationSummary">
+  <span id="riskBadge" style="padding:4px 8px; border-radius:4px; font-weight:bold; display:inline-block;"></span>
+
+</div>
+
+    </div>
+  </div>
+</main>
+
+</main>
+
+  </header>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Fraud & Verification</small>
+    </div>
+  </footer>
+  <!-- Add SheetJS library in your HTML (before auth.js/compliance.js) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+
+  <script src="scripts.js"></script>
+</body>
+</html>

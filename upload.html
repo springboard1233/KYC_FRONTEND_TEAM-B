@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Upload Aadhaar</title>
+  <link href="styles.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-page upload-bg">
+  <header class="site-header">
+    <div class="container header-row">
+      <h1 class="brand small">KYC Suite</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="verification.html">Verification</a>
+        <a href="compliance.html">Compliance</a>
+      </nav>
+    </div>
+  </header>
+
+<main class="container card upload-card">
+  <h2 style="text-align:center; margin-bottom:2rem;">Upload Documents</h2>
+  <p class="muted" style="text-align:center; margin-bottom:2rem;">
+    Supported formats: JPG, PNG, PDF (images preview only). Max size: 10MB
+  </p>
+
+  <div class="upload-sections" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+    
+    <!-- Aadhaar Section -->
+    <div class="upload-card-section" style="flex:1; min-width:250px; border:1px solid #ccc; padding:1rem; border-radius:8px;">
+      <h3>Aadhaar</h3>
+      <label class="file-upload">
+        <span class="file-label">Choose File</span>
+        <input id="aadhaarFile" type="file" accept="image/*,application/pdf" />
+      </label>
+      <div id="previewWrapAadhaar" class="preview">
+        <img id="previewImgAadhaar" alt="Preview" />
+        <p id="previewNameAadhaar" class="muted small"></p>
+      </div>
+       <div id="previewWrap" class="preview hidden">
+        <p class="muted">Preview:</p>
+        <img id="previewImg" alt="Preview" />
+        <p id="previewName" class="muted small"></p>
+      </div>
+
+      <div class="controls">
+        <button id="extractAadhaar" class="btn primary" disabled>Extract Data</button>
+      </div>
+      <div id="statusAadhaar" class="status"></div>
+    </div>
+
+    <!-- PAN Card Section -->
+    <div class="upload-card-section" style="flex:1; min-width:250px; border:1px solid #ccc; padding:1rem; border-radius:8px;">
+      <h3>PAN Card</h3>
+      <label class="file-upload">
+        <span class="file-label">Choose File</span>
+        <input id="panFile" type="file" accept="image/*,application/pdf" />
+      </label>
+      <div id="previewWrapPan" class="preview">
+        <img id="previewImgPan" alt="Preview" />
+        <p id="previewNamePan" class="muted small"></p>
+      </div>
+       <div id="previewWrap" class="preview hidden">
+        <p class="muted">Preview:</p>
+        <img id="previewImg" alt="Preview" />
+        <p id="previewName" class="muted small"></p>
+      </div>
+
+      <div class="controls">
+        <button id="extractPan" class="btn primary" disabled>Extract Data</button>
+      </div>
+      <div id="statusPan" class="status"></div>
+    </div>
+
+    <!-- Driving License Section -->
+    <div class="upload-card-section" style="flex:1; min-width:250px; border:1px solid #ccc; padding:1rem; border-radius:8px;">
+      <h3>Driving License</h3>
+      <label class="file-upload">
+        <span class="file-label">Choose File</span>
+        <input id="dlFile" type="file" accept="image/*,application/pdf" />
+      </label>
+      <div id="previewWrapDL" class="preview">
+        <img id="previewImgDL" alt="Preview" />
+        <p id="previewNameDL" class="muted small"></p>
+      </div>
+      
+      <div class="controls">
+        <button id="extractDL" class="btn primary" disabled>Extract Data</button>
+      </div>
+      <div id="statusDL" class="status"></div>
+    </div>
+
+  </div>
+
+  <hr />
+  <p class="muted small" style="text-align:center; margin-top:1rem;">
+    You can upload Aadhaar, PAN, and Driving License documents, preview them, and extract key details.
+  </p>
+</main>
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>File Upload</small>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

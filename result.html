@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Extracted Result • Milestone 1</title>
+  <link href="styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-page result-bg">
+  <header class="site-header">
+    <div class="container header-row">
+      <h1 class="brand small">KYC Suite</h1>
+      <nav>
+        <a href="upload.html">Upload</a>
+        <a href="verification.html">Verification</a>
+        <a href="compliance.html">Compliance</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container card result-card">
+    <h2>Extracted Aadhaar Details</h2>
+
+    <div id="resultCard" class="result-grid">
+      <div><strong>Name</strong><div id="name">—</div></div>
+      <div><strong>DOB</strong><div id="dob">—</div></div>
+      <div><strong>Gender</strong><div id="gender">—</div></div>
+      <div><strong>Aadhaar No</strong><div id="aadhaar">—</div></div>
+      <div class="full"><strong>Address</strong><div id="address">—</div></div>
+    </div>
+
+    <div class="controls">
+      <button id="confirmBtn" class="btn primary">Confirm & Save</button>
+      <a href="upload.html" class="btn">Re-upload</a>
+    </div>
+
+    <div id="saveStatus" class="muted small" aria-live="polite"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Result</small>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
