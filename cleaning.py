@@ -4,8 +4,7 @@ import re
 input_folder = "ocr_texts"
 output_folder = "cleaned_texts"
 
-os.makedirs(output_folder, exist_ok=True)
-
+os.makedirs(ouput_folder,exist_ok=True)
 aadhaar_pattern = re.compile(r"\b\d{4}\s\d{4}\s\d{4}\b")
 
 for i in range(1, 6):  
